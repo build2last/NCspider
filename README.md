@@ -15,3 +15,5 @@ sudo apt-get install git  https://github.com/build2last/NCspider
 sudo apt-get install libmysqlclient-dev python-dev
 
 pip install -r requirements.txt
+
+[快看看我！](http://build2last.github.io/)
