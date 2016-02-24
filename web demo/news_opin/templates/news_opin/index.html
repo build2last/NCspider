@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'news_opin/style.css' %}" />
+{% if hot_news_list %}
+    <ul>
+    {% for news_list in hot_news_list %}
+		<div>
+		{% for news in news_list %}
+       		<li><a href="{{ news.news_url }}">{{ news.title }}</a></li>
+		{% endfor %}
+		</div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No news are available.</p>
+{% endif %}
