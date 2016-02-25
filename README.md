@@ -1,14 +1,14 @@
 # NCspider  
 
-可能是最亲民的，开源中文门户网站新闻和评论抓取工具。
+##可能是最亲民的，中文门户网站新闻和评论,开源抓取工具。
 
-新浪，搜狐，腾讯网站 新闻及评论
+###包括新浪，搜狐，腾讯网站
 
 Powered by scrapy, python 2.7.  
 
-了解更多请访问[项目主页](http://build2last.github.io/NCspider)
+##请访问[项目主页](http://build2last.github.io/NCspider)
 
-Hitherto 20160213,Sina, Tencent news comments included.
+Up to 2016-02, Sina, Tencent news & comments included.
 
 sudo apt-get install git  https://github.com/build2last/NCspider
 
@@ -16,4 +16,7 @@ sudo apt-get install libmysqlclient-dev python-dev
 
 pip install -r requirements.txt
 
-[快看看我！](http://build2last.github.io/)
+###[看我](http://build2last.github.io/)
+###关于我
+ * Email: lancelotdev@163.com
+ * author:liu-kun
