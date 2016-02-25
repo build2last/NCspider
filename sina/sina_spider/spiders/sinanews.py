@@ -1,15 +1,22 @@
 # -*- coding:utf-8 -*-
 """
-#author:liu-kun
+#author: liu-kun
 #Email: lancelotdev@163.com
 #输出数据已经全部转为UTF-8，待完善：对花边(图片)新闻 & 视频新闻的处理
 #-----说明-----：
-接口返回的网友互动量信息如下，我采用total反应热度，但是获取的评论数量为“show”少于总数量
+1.[INFO]接口返回的网友互动量信息如下，我采用total反应热度，但是获取的评论数量为“show”少于总数量
 "count": {
 "qreply": 17313,
 "total": 19392,
 "show": 288
 }
+date:2016-02-18
+author:liu-kun
+2.[INFO]一些新闻内容未做处理
+彩票信息 http://sports.sina.com.cn/l/2016-02-24/doc-ifxprucs6460405.shtml
+体育视频 http://sports.sina.com.cn/uclvideo/bn/2016-02-24/050565188721.html
+date:2016-02-25
+author:liu-kun
 --------------
 """
 import urllib2
@@ -21,9 +28,8 @@ import scrapy
 from urlparse import urlparse
 from sina_spider.items import SimpleNews,NewsItem,commentItem
 from scrapy.http import Request
-from bs4 import BeautifulSoup
 import logging
-import chardet
+
 
 logging.basicConfig(
 			level=logging.INFO,
@@ -34,20 +40,28 @@ logging.basicConfig(
 
 
 class newsSpider(scrapy.Spider):
-	name = "sinanews"
+	name = "sina"
 	allowed_domains = ["sina.com.cn"]
+	delta=datetime.timedelta(days=1) 
+	yesterday=str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
+	news_date=yesterday#设定抓取新闻日期
 	start_urls = [
-		"http://roll.news.sina.com.cn/s/"
+		"http://roll.news.sina.com.cn/interface/rollnews_ch_out_interface.php?col=89&spec=&type=&date="
+		+news_date+"&ch=01&k=&offset_page=0&offset_num=0&num=5000&asc=&page="
 		]
+
+
 	def __init__(self):
-		self.pageNumber=1
-	
+		delta=datetime.timedelta(days=1) 
+		yesterday=str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
+		news_date=yesterday#设定抓取新闻日期
+		
 
 	def parse(self, response):
-		if  "roll.news.sina.com.cn"  in response.url:
+		if  response.url.startswith("http://roll.news.sina.com.cn/"):
 			try:
-					response=self.get_response()		 
-					newsDic=json.loads(self.sina_api_process(response),strict=False)	   
+					response_html=response.body		 
+					newsDic=json.loads(self.sina_api_process(response_html),strict=False)	   
 					for i in range(0,len(newsDic["list"])):
 						news_url=newsDic["list"][i]["url"] 
 						if news_url.startswith("http://video") or news_url.startswith("http://slide"):
@@ -63,9 +77,9 @@ class newsSpider(scrapy.Spider):
 						yield Request(url=newsDic["list"][i]["url"], callback=self.parse)
 						yield item
 			except Exception as ex :	
-				logging.error("ROLL NEWS ERROR"+str(ex))				
+				logging.error("error0:Parse ERROR"+str(ex))				
 		
-		elif "artibody" in response.body and "comment5" not in response.url:	
+		elif (not response.url.startswith("http://roll.news.sina.com.cn/")) and "comment5" not in response.url:	
 			item=NewsItem()#item
 			temp=response.xpath('//meta[contains(@name,"comment")]/@content').extract_first()
 			temp=self.str_decode(temp)
@@ -74,7 +88,11 @@ class newsSpider(scrapy.Spider):
 			item['news_ID']=two_words[1].strip("comos-").encode("utf-8")
 			comment_url="http://comment5.news.sina.com.cn/page/info?format=json&channel="+two_words[0]+"&newsid="+two_words[1]+"&page_size=200"
 			item['comment_url']=comment_url.encode("utf-8")
-			item['news_body']=self.get_news_body(response.body).encode("utf-8")
+			html_list=response.xpath("//div[@id='artibody']//p/text()").extract()
+			news_content=''
+			for i in html_list:
+				news_content=news_content+i
+			item['news_body']=news_content.encode("utf-8")
 			item['flag']="news_body"
 			yield Request(url=comment_url,callback=self.parse)
 			yield item
@@ -114,26 +132,15 @@ class newsSpider(scrapy.Spider):
 						item["newsUrl"]=response.url
 						yield item
 			except Exception as e:
-				logging.error("comments analyse error:"+str(e))
+				logging.error("error: comment_analyse:"+str(e))
 				
-
-	def get_response(self):
-		"""
-		访问滚动新闻api获取昨日新闻链接json
-		"""
-		delta=datetime.timedelta(days=1) 
-		yerterday=str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
-		sina_news_url ="http://roll.news.sina.com.cn/interface/rollnews_ch_out_interface.php?col=89&spec=&type=&date="+yerterday+"&ch=01&k=&offset_page=0&offset_num=0&num=5000&asc=&page="
-		response=urllib2.urlopen(sina_news_url)     
-		return response
-
 
 	def sina_api_process(self,res):
 		"""
 		处理api 的response 返回的json,包括1.json数据说明 2.会引起错误的特殊字符
 		"""
 		try:
-			data=res.read().decode("gbk").encode("utf-8")
+			data=res.decode("gbk").encode("utf-8")
 			value=data[14:-1]
 			value=value.replace("'s "," s ")
 			keylist=["serverSeconds","last_time","path","title","cType","count","offset_page","offset_num","list","channel","url","type","pic"]
@@ -152,43 +159,6 @@ class newsSpider(scrapy.Spider):
 			logging.error("error  1:Parse ERROR"+str(ex))
 
 
-	def  get_news_body(self,html):
-		"""
-		解码并解析html获取新闻内容
-		"""
-		res_body=html
-		if  "charset=utf-8" in res_body :
-			try:
-				res_body=res_body.decode("utf-8","replace")
-			except Exception as ex :
-				logging.error("utf-8 decode ERROR"+str(ex))
-		elif  "charset=gb2312" in  res_body:
-			try:
-				res_body=res_body.decode("gb2312","replace")
-			except Exception as ex :	
-				logging.error("gb2312 decode ERROR"+str(ex))
-		"""		
-		else:
-			
-			try:
-				res_body=res_body.decode(chardet.detect(res_body) ["encoding"],"replace")
-			except Exception as ex :	
-				logging.error("auto decode ERROR"+str(ex))
-		"""		
-		try:
-			soup=BeautifulSoup(res_body,"lxml")
-			div_article=soup.find('div',id="artibody")
-			news_soup=BeautifulSoup(str(div_article),"lxml")
-			news=""
-			for i in news_soup.strings:
-				news=news+i
-			r = re.compile("{.*}",re.S)
-			pure_news=re.sub(r, "", news)
-			return pure_news
-		except Exception as e:
-			logging.error(str(e))
-
-
 	def str_decode(self,tHTML):
 		"""
 		HTML解码
@@ -202,5 +172,4 @@ class newsSpider(scrapy.Spider):
 		if "gbk" in data:
 			data=data.decode("gbk")
 		return data
-
 
