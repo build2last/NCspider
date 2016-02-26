@@ -156,20 +156,20 @@ class newsSpider(scrapy.Spider):
 			value=value.replace("'", "\"") 
 			return value
 		except Exception as ex :	
-			logging.error("error  1:Parse ERROR"+str(ex))
+			logging.error("[ERROR] sina_api_process:"+str(ex))
 
 
 	def str_decode(self,tHTML):
 		"""
 		HTML解码
-		:param: url
+		:param: tHtml 
 		:return: decoded html
 		"""
 		data=tHTML
 		charset=re.findall('encoding.*?"(\w+)"',data)
 		if len(charset)>0:
 			data=data.decode(charset[0])
-		if "gbk" in data:
+		else if "gbk" in data:
 			data=data.decode("gbk")
 		return data
 
