@@ -24,22 +24,22 @@ class SohuPipeline(object):
 
     def __init__(self, dbpool):
         self.dbpool = dbpool
-        self.dbpool.runQuery("""create table if not exists news_opin_sohu_article(
-               news_id varchar(50) not null,
-                primary key(news_id),
-               title varchar(200),   
-                time datetime,
-                comments_number int,
-                content text
-                )charset='utf8'""")
-        self.dbpool.runQuery("""create table if not exists news_opin_sohu_comment(     
-                news_id varchar(50) not null,
-		primary key(news_id),
-                comments_id varchar(50),   
-                author varchar(50),           
-                datetime varchar(100),
-                comment text
-                )charset='utf8'""")
+        #self.dbpool.runQuery("""create table if not exists `sohu`.` news_opin_sohu_article`(
+        #       news_id varchar(50) not null,
+        #        primary key(news_id),
+        #       title varchar(200),   
+        #        time datetime,
+        #        comments_number int,
+        #        content text
+        #        )charset='utf8'""")
+        #self.dbpool.runQuery("""create table if not exists `sohu`.` news_opin_sohu_comment`(     
+        #        news_id varchar(50) not null,
+		#primary key(news_id),
+        #        comments_id varchar(50),   
+        #        author varchar(50),           
+        #        datetime varchar(100),
+        #        comment text
+        #        )charset='utf8'""")
 
     @classmethod
     def from_crawler(cls, crawler):

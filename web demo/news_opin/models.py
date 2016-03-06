@@ -5,29 +5,29 @@ from django.db import models
 class tencent_article(models.Model):
 	"""11 elements"""
 	class Meta:
-		ordering=['-time']
-		verbose_name="标题"
-	news_id = models.CharField(max_length=50)
+		ordering=['-put_time']
+		verbose_name="腾讯"
+	news_id = models.CharField(max_length=100)
 	parent_name = models.CharField(max_length=200)#unique for tencent eg:news_news_top
 	news_url = models.CharField(max_length=200)
 	title = models.CharField(max_length=200)
 	abstract = models.CharField(max_length=200)
 	source = models.CharField(max_length=50)
-	time = models.DateTimeField(u'')
+	put_time = models.DateTimeField(u'')
 	content = models.TextField()
-	comments_id = models.CharField(max_length=60)
+	comments_id = models.CharField(max_length=100)
 	comments_url = models.CharField(max_length=200)
 	comments_number = models.IntegerField(default=0)
 
 class tencent_comment(models.Model):
 	#news=models.ForeignKey(tencent_article,verbose_name="tecent related news")
-	news_id =models.CharField(max_length=50)
-	comments_id = models.CharField(max_length=50)
+	news_id =models.CharField(max_length=100)
+	comments_id = models.CharField(max_length=100)
 	username = models.CharField(max_length=100)
 	comment = models.TextField()
 	put_time = models.DateTimeField()
 	sex = models.CharField(max_length=10)
-	reply_id = models.CharField(max_length=50)
+	reply_id = models.CharField(max_length=100)
 	agree_count = models.IntegerField(default=0)
 
 
@@ -39,17 +39,17 @@ class  sina_article(models.Model):
 	category=models.CharField(max_length=50)
 	put_time=models.DateTimeField()
 	content=models.TextField()
-	comment_url=models.CharField(max_length=250)
+	comments_url=models.CharField(max_length=250)
 	comments_number = models.IntegerField(default=0)
 
 class sina_comment(models.Model):
 	news_id =models.CharField(max_length=100)
-	m_id = models.CharField(unique=True,max_length=50)
+	m_id = models.CharField(unique=True,max_length=100)
 	username = models.CharField(max_length=100)
 	comment = models.TextField()
 	put_time = models.DateTimeField()
 	#sex = models.CharField(max_length=10)
-	parent_id = models.CharField(max_length=50)
+	parent_id = models.CharField(max_length=100)
 	agree_count = models.IntegerField(default=0)
 	against_count=models.IntegerField()
 
@@ -69,5 +69,4 @@ class sohu_comment(models.Model):
 	author=models.CharField(max_length=50)
 	datetime=models.DateTimeField()
 	comment=models.TextField()
-
 

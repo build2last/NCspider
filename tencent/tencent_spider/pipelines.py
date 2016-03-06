@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+
 # Define your item pipelines here
+#
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import logging
 from scrapy.exceptions import DropItem
-from twisted.enterprise import adbapi
- 
+from twisted.enterprise import adbapi 
 logging.basicConfig(
 	level=logging.WARNING,
 	format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
@@ -22,41 +23,40 @@ class TencentPipeline(object):
 
     def __init__(self, dbpool):
         self.dbpool = dbpool
-		#self.dbpool.runQuery("""create table if not exists news_opin_tencent_article(
+		#self.dbpool.runQuery("""create table if not exists `pub_opinion`.`news_opin_tencent_article`(
 		#       news_id varchar(50) not null,
-		#      primary key(news_id),
-		#     news_url varchar(200),
-		#    title varchar(200),
-		#   abstract varchar(200),
-		#  source varchar(50),
-		# time datetime,
-		#comments_url varchar(200),
+		#       primary key(news_id),
+		#       news_url varchar(200),
+		#       title varchar(200),
+		#       abstract varchar(200),
+		#       source varchar(50),
+		#       put_time datetime,
+		#       comments_url varchar(200),
 		#       comments_id varchar(50),
-		#      comments_number int,
-		#     parent_name varchar(200),
-		#    content text
+		#       comments_number int,
+		#       parent_name varchar(200),
+		#       content text
 		#   )charset='utf8'""")
-		#self.dbpool.runQuery("""create table if not exists news_opin_tencent_comment(     
+		#self.dbpool.runQuery("""create table if not exists pub_opinion`.`news_opin_tencent_comment`(     
 		#       news_id varchar(50) not null,
-		#      comments_id varchar(50),
-		#     sex char(10),
-		#    username varchar(50),
-		#   reply_id varchar(50),
-		#  agree_count int,
-		# put_time varchar(100),
-		#comment text
-		#)charset='utf8'""")
+		#       comments_id varchar(50),
+		#       sex char(10),
+		#       username varchar(50),
+		#       reply_id varchar(50),
+		#       agree_count int,
+		#       put_time varchar(100),
+		#       comment text
+		#  )charset='utf8'""")
 
     @classmethod
     def from_crawler(cls, crawler):
         settings = crawler.settings
-        #数据库配置
         kw = dict(
             host=settings.get('MYSQL_HOST',' localhost'),
             port=settings.get('MYSQL_PORT', 3306),
             user=settings.get('MYSQL_USER', 'root'),
             db=settings.get('MYSQL_DB', 'tencent'),
-            passwd=settings.get('MYSQL_PASSWD', '{{your pass words}}'),
+            passwd=settings.get('MYSQL_PASSWD', 'liukun'),
             charset='utf8',
             use_unicode=True,
         )
@@ -78,7 +78,8 @@ class TencentPipeline(object):
                 if not item['content']:
                     try:
                         conn.execute(
-                            """update news_opin_tencent_article set news_url=%s, title=%s, abstract=%s, source=%s, parent_name=%s, time=%s,
+                            """update news_opin_tencent_article set news_url=%s, title=%s, abstract=%s, source=%s, parent_name=%s, 
+                            put_time=%s,
                             comments_id=%s, comments_url=%s  where news_id=%s""",
                             (
                                 item['url'], item['title'], item['abstract'], item['source'], item['parent_name'],

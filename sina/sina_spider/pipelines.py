@@ -1,9 +1,10 @@
 #-*- coding:utf-8 -*-
+
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
+#目前数据库中的信息无论是不是数字都是设计为以字串来存储的
 
 from os import path
 import logging
@@ -18,8 +19,6 @@ logging.basicConfig(
 	datefmt='%a, %d %b %Y %H:%M:%S',
 	filename='scrapy.log',
 	filemode='w')
-
-
 class SinaNewsPipeline(object):
 	def __init__(self,dbpool):
 		self.dbpool = dbpool
@@ -53,7 +52,7 @@ class SinaNewsPipeline(object):
 			port=settings.get('MYSQL_PORT', 3306),
 			user=settings.get('MYSQL_USER', 'root'),
 			db=settings.get('MYSQL_DB', 'pub_opinion'),
-			passwd=settings.get('MYSQL_PASSWD', '{{your pass words}}'),
+			passwd=settings.get('MYSQL_PASSWD', 'liukun'),
 			charset='utf8',
 			use_unicode=True,
 		)
@@ -100,15 +99,16 @@ class SinaNewsPipeline(object):
 					if not item['news_body']:
 						try:
 							conn.execute(
-							         	"update news_opin_sina_article set content=%s, news_id=%s, comment_url=%s where news_url =%s",
+							         	"update news_opin_sina_article set content=%s, news_id=%s, comments_url=%s where news_url =%s",
 							         	('',item['news_ID'],item['comment_url'],item['newsUrl'])
 							     )
 							logging.error("newsbody")###debug
 						except :
 							conn.execute(
 							         	"update  news_opin_sina_article set content=%s, news_id=%s, comment_url=%s where news_url =%s",
-							         	('', item[news_ID],'', item['newsUrl'])
+							         	('', item['news_ID'],'', item['newsUrl'])
 							     )
+
 					else:
 						conn.execute(
 							         	"update news_opin_sina_article set content=%s, news_id=%s, comment_url=%s where news_url =%s",
