@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--For IE-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock %}-Recommend System</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/static/base/css/animate.css">
+	<link rel="stylesheet" href="/static/base/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/base/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/base/css/templatemo_misc.css">
+	<link rel="stylesheet" href="/static/base/css/templatemo_style.css">
+    <!-- JavaScripts -->
+	<script src="/static/base/js/jquery-2.1.4.min.js"></script>
+	<script src="/static/base/js/jquery.singlePageNav.js"></script>
+	<script src="/static/base/js/jquery.flexslider.js"></script>
+
+	<script src="/static/base/js/custom.js"></script>
+	<script src="/static/base/js/jquery.lightbox.js"></script>
+	<script src="/static/base/js/templatemo_custom.js"></script>
+    <script src="/static/base/js/jquery-git2.js"></script><!-- previous next script -->
+    {% block navbar_css %}{% endblock navbar_css%}
+  </head>
+  <body>
+  <!-- title start -->
+  	<div class="container">
+    	<div class="row">
+        	<div class="col-md-6 col-sm-6">
+            	<div class="templatemo_title"><a href="#">Recommend System</a></div>
+                <div class="templatemo_subtitle">based on association rules</div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+            	<form id="search_form">
+            		<div class="templatemo_search">
+                    	<input name="search" type="text" placeholder="" id="search">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  <!-- title end -->
+  	<div class="site-header">
+		<div class="main-navigation">
+			<div class="container">
+            	<div class="row">
+            	<div class="col-md-12">
+                	<!-- This one in here is responsive menu for tablet and mobiles -->
+                    <div class="responsive-navigation visible-sm visible-xs">
+                        <a href="#" class="menu-toggle-btn">
+                            <i class="fa fa-bars fa-2x"></i>
+                        </a>
+       			        <div class="navigation responsive_menu">
+                            <ul>
+                                <li><a class="show-1 templatemo_home" href="#">Main Page</a></li>
+				        	    <li><a class="show-2 templatemo_page2" href="#">Service</a></li>
+				        	    <li><a class="show-3 templatemo_page3" href="#">Portfolio</a></li>
+				        	    <li><a class="show-5 templatemo_page5" href="#">Contact</a></li>
+                            </ul>
+    	                 </div> <!-- /.responsive_menu -->
+                    </div> <!-- /responsive_navigation -->
+                </div>
+                </div>
+            </div>
+			<div class="container">
+				<div class="row">
+                     <div class="col-md-12 navigation">
+						<div class="row main_menu">
+                    		<div class="col-md-2"><a id="prev">Prev</a></div>
+							<div class="col-md-2"><a class="show-1 templatemo_home" href="#"><div class="fa fa-home"></div></a></div>
+							<div class="col-md-2"><a class="show-2 templatemo_page2" href="#"><div class="fa fa-wrench"></div></a></div>
+							<div class="col-md-2"><a class="show-3 templatemo_page3" href="#"><div class="fa fa-picture-o"></div></a></div>
+							<div class="col-md-2"><a class="show-5 templatemo_page5" href="#"><div class="fa fa-phone"></div></a></div>
+                            <div class="col-md-2"><a id="next">Next</a></div>
+						</div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="menu-container">
+
+	<div class="divs">
+<!-- homepage start -->
+	<div class="content homepage" id="menu-1">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-md-12">
+                <p>Home page!</p>
+			</div>
+        </div>
+    </div>
+    </div>
+<!-- homepage end -->
+
+<!-- service start -->
+	<div class="content service" id="menu-2">
+    <div class="container">
+        <div class="row">
+        	<div class="col-md-12">
+        		<h1>Our Services</h1>
+            </div>
+        </div>
+    </div>
+    </div>
+<!-- service end -->
+
+<!-- portfolio start -->
+<div class="content portfolio" id="menu-3">
+  <div class="container">
+  		<div class="row">
+        	<div class="col-md-12">
+            	<h1>Our portfolio</h1>
+            </div>
+        </div>
+  </div>
+  </div>
+<!-- portfolio end -->
+
+<!-- contact start -->
+<div class="content contact" id="menu-5">
+  <div class="container">
+  	<div class="row">
+    	<div class="col-md-12">
+        	<h1>Contact us</h1>
+        </div>
+    </div>
+      <div class="clear"></div>
+    <div  class="row">
+    	<div class="col-md-12">
+        	<div class="templatemo_contactmap">
+		    	<div id="templatemo_map"></div>
+        	</div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="row">
+    	<div class="col-md-8 col-sm-12">
+        	<form action="#" id="contact_form">
+        	<div class="templatemo_textbox"><input name="fullname" type="text" class="form-control" id="fullname" placeholder="Your Name"></div>
+            <div class="templatemo_textbox"><input name="email" type="text" class="form-control" id="email" placeholder="Your Email"></div>
+            <div class="clear"></div>
+             <div class="templatemo_textareabox"><textarea name="message" class="form-control" id="message"  placeholder="Your message ... "></textarea>
+             <div class="clear"></div>
+             <button type="button" class="btn btn-primary">Send Message</button>
+             </div>
+             </form>
+             <div class="clear"></div>
+        </div>
+        <div class="col-md-4 col-sm-12 templatemo_address">
+        	<ul>
+            	<li class="fa fa-phone"></li>
+                <li class="text">010-020-0340</li>
+                <li class="fa fa-map-marker"></li>
+                <li class="text">123 Thamine Street, Digital Estate</li>
+                <li class="fa fa-envelope"></li>
+                <li class="text">info@company.com</li>
+                <li class="fa fa-globe"></li>
+                <li class="text"><a href="#">www.cssmoban.com</a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  </div>
+<!-- contact end -->
+	</div>
+</div>
+	<!-- footer start -->
+    <div class="clear"></div>
+		<div class="templatemo_footer">
+            <div class="container">
+            	<div class="row">
+                	<div class="col-md-12">
+                        Copyright © 2084 Company Name - <a href="http://www.zhengshiliang.com/" target="_blank"> Newbie </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- footer end -->
+
+  </body>
+
+</html>

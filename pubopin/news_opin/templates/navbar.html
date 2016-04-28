@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block navbar_css %}
+<style>
+    html {
+        height: 100%;
+    }
+    body {
+        min-height: 100%;
+        position: relative;
+        padding-bottom: 74px;
+        padding-top: 74px;
+    }
+    /* -----for navbar----- */
+    .navbar {
+        background: #FFF8DC;
+    }
+    /* -----for footer----- */
+    #site_footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        height: 74px;
+        color: #999;
+    }
+    #site_footer .container {
+        padding-bottom: 10px;
+    }
+    #site_footer .container .footer_text {
+        padding-top: 18px;
+        color: black;
+        font-size: 15px;
+    }
+    #site_footer p {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+    #site_navbar .container a {
+        font-size: 15px;
+        color: black;
+        background: #FFEC8B;
+    }
+    #site_navbar .container li.active a {
+        background: #FFC125;
+    }
+</style>
+{% endblock navbar_css %}
+{% block navbar %}
+<div id="site_navbar">
+<div class="navbar navbar navbar-default" role="navigation">
+<div class="container">
+    <div class="navbar-collapse collapse navbar-left" style="margin-top: 5px;">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="/news">首页</a></li>
+                <li><a href="">新浪新闻展示</a></li>
+				<li><a href="">腾讯新闻展示</a></li>
+				<li><a href="">搜狐新闻展示</a></li>
+            </ul>
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock navbar %}
+{% block footer %}
+<!-- footer start -->
+<div id="site_footer">
+    <div class="container">
+        <div class="footer_text">
+            <small class="pull-right">科研训练展示平台</small>
+            <br>
+            <p><small class="pull-right">©版权所有 2014-{% now "Y" %},开发组保留一切权利</small></p>
+        </div>
+    </div>
+</div>
+<!-- footer end -->
+{% endblock footer%}

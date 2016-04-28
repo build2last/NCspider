@@ -1,0 +1,92 @@
+{% extends "navbar.html" %}
+{% block title %} News Recommend {% endblock %}
+{% block css %}
+<style>
+    div, a {
+        color: black;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span4">
+			<h1 style="text-align: center;">腾讯新闻推荐</h1>
+			<h2 style="text-align: center;">最多互动</h2>
+			<table class="table table-hover;">
+				<thead>
+				    <tr>
+				        <th>标题</th>
+				        <th>互动数</th>
+				        <th>发布时间</th>
+				    </tr>
+				</thead>
+				{% if hot_tencent_news %}
+				<tbody>
+				{% for News in hot_tencent_news %}
+				    <tr>
+				        <td><a href="{{ News.news_url }}">{{ News.title }}</a></td>
+				        <td><a href="{{ News.comments_url }}">{{ News.comments_number}}</td>
+				        <td>{{ News.put_time }}</td>
+				    </tr>
+				{% endfor %}
+				</tbody>
+				{% endif %}
+			</table>
+		</div>
+		<div class="span4">
+			<h1 style="text-align: center;">新浪新闻推荐</h1>
+			<h2 style="text-align: center;">最多互动</h2>
+			<table class="table table-hover;">
+				<thead>
+				    <tr>
+				        <th>标题</th>
+				        <th>互动数</th>
+						<th>类别</th>
+				        <th>发布时间</th>
+				    </tr>
+				</thead>
+				{% if hot_sina_news %}
+				<tbody>
+				{% for News in hot_sina_news %}
+				    <tr>
+				        <td><a href="{{ News.news_url }}">{{ News.title }}</a></td>
+				        <td><a href="comment/sina/{{ News.news_id }}">{{ News.comments_number}}</a></td>
+						<td>{{ News.category }}</td>
+				        <td><a href="{{  News.comments_url  }}">{{ News.put_time }}</a></td>
+				    </tr>
+				{% endfor %}
+				</tbody>
+				{% endif %}
+			</table>
+		</div>
+		<div class="row-fluid">
+		<div class="span4">
+			<h1 style="text-align: center;">搜狐新闻推荐</h1>
+			<h2 style="text-align: center;">最多互动</h2>
+			<table class="table table-hover;">
+				<thead>
+				    <tr>
+				        <th>标题</th>
+				        <th>互动数</th>
+				        <th>发布时间</th>
+				    </tr>
+				</thead>
+				{% if hot_sohu_news %}
+				<tbody>
+				{% for News in hot_sohu_news %}
+				    <tr>
+				        <td><a href="{{ News.news_url }}">{{ News.title }}</a></td>
+				        <td><a href="comment/sohu/{{ News.news_id }}/">{{ News.comments_number}}</td>
+				        <td>{{ News.put_time }}</td>
+				    </tr>
+				{% endfor %}
+				</tbody>
+				{% endif %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

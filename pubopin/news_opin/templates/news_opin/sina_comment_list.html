@@ -1,0 +1,44 @@
+{% extends "navbar.html" %}
+{% block title %} cmt Recommend {% endblock %}
+{% block css %}
+<style>
+    div, a {
+        color: black;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span4">
+			<h1 style="text-align: center;">新闻评论</h1>
+			<h2 style="text-align: center;">最新</h2>
+			<table class="table table-hover;">
+				<thead>
+				    <tr>
+				        <th>网名</th>
+				        <th>评论内容</th>
+				        <th>发布时间</th>
+						<th>赞同</th>
+				    </tr>
+				</thead>
+                {% if comments_list %}
+				<tbody>
+				{% for cmt in comments_list %}
+				    <tr>
+				        <td>{{ cmt.username }}</a></td>
+				        <td>{{ cmt.comment}}</td>
+				        <td>{{ cmt.put_time }}</td>
+						<td>{{ cmt.agree_count }}</td>
+				    </tr>
+				{% endfor %}
+				</tbody>
+                {% endif %}
+			</table>
+		</div>
+    </div>
+</div>
+
+
+{% endblock content %}
