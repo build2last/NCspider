@@ -194,7 +194,7 @@ class NewsPipeline(object):
     def _tencent_do_execute(self, conn, item, spider):
         if item['flag'] == 'article':
             if conn.execute("select 1 from news_opin_tencent_article where news_id=%s", (item['news_id'],)):
-                if not item['content']:
+                if  item['content'] == None:
                     try:
                         conn.execute(
                             """update news_opin_tencent_article set news_url=%s, title=%s, abstract=%s, source=%s, parent_name=%s,  
