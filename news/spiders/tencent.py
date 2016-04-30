@@ -20,10 +20,10 @@ import logging
 
 logging.basicConfig(
 	level=logging.WARNING,
-	format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-	datefmt='%a, %d %b %Y %H:%M:%S',
-	filename='tencent_spider.log',
-	filemode='w')
+	format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+	datefmt = '%a, %d %b %Y %H:%M:%S',
+	filename = 'tencent_spider.log',
+	filemode = 'w')
 
 
 class TencentSpider(Spider):
@@ -65,7 +65,8 @@ class TencentSpider(Spider):
                     yield item
                     if cnt % 20 == 0:
                         ids = ','.join(ids)
-                        url = 'http://r.inews.qq.com/getQQNewsListItems?uid=9224f71108b3a1f5' + '&ids=' + ids + '&chlid=' + chlid
+                        url = 'http://r.inews.qq.com/getQQNewsListItems?uid=9224f71108b3a1f5'\
+                              + '&ids=' + ids + '&chlid=' + chlid
                         yield Request(url=url, callback=self.parse)
 		        ids = []
             elif url[3].startswith('a'):#新闻内容页面处理  eg:http://view.inews.qq.com/a/NEW2016021001255109
@@ -75,9 +76,9 @@ class TencentSpider(Spider):
                 try:
                     text_html= response.xpath('//div[@id="content"]').extract()[0]
                     r=re.compile("<.*?>",re.S)#除去html标签的正则表达  remove_compile
-                    item['content']=re.sub(r,'',text_html)
+                    item['content'] = re.sub(r,'',text_html)
                 except Exception as e:
-                    logging.error("spider content debug:" +str(e)+'   '+response.url)
+                    logging.info("spider content debug正则匹配失败:" +str(e)+'   '+response.url)
                     item['content']="404"
                 yield item
  #article eg:http://r.inews.qq.com/getQQNewsListItems?uid=9224f71108b3a1f5&ids=NEW2016021001255108&child=news_news_top
@@ -105,7 +106,8 @@ class TencentSpider(Spider):
                     yield item
                     url = 'http://view.inews.qq.com/a/' + item['news_id']
                     yield Request(url=url, callback=self.parse)
-                    url = 'http://r.inews.qq.com/getQQNewsComment?uid=9224f71108b3a1f5&comment_id=%s&page=%s' % (item['comments_id'], 1)
+                    url = 'http://r.inews.qq.com/getQQNewsComment?uid=9224f71108b3a1f5&comment_id=%s&page=%s' \
+                          % (item['comments_id'], 1)
                     yield Request(url=url, callback=self.parse)
 
     #comments eg:http://r.inews.qq.com/getQQNewsComment?uid=9224f71108b3a1f5&comment_id=1304296892&page=1

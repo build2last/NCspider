@@ -8,7 +8,7 @@ class tencent_article(models.Model):
 		ordering=['-put_time']
 		verbose_name="腾讯"
 	news_id = models.CharField(max_length=100)
-	parent_name = models.CharField(max_length=200)#unique for tencent eg:news_news_top
+	parent_name = models.CharField(max_length=200,default='')#unique for tencent eg:news_news_top
 	news_url = models.CharField(max_length=200)
 	title = models.CharField(max_length=200)
 	abstract = models.CharField(max_length=200)
@@ -21,7 +21,7 @@ class tencent_article(models.Model):
 
 class tencent_comment(models.Model):
 	#news=models.ForeignKey(tencent_article,verbose_name="tecent related news")
-	news_id =models.CharField(max_length=100)
+	news_id =models.CharField(max_length=100,default='')
 	comments_id = models.CharField(max_length=100)
 	username = models.CharField(max_length=100)
 	comment = models.TextField()

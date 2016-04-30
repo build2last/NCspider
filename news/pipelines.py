@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding:utf-8 -*-
 
 # Define your item pipelines here
 #
@@ -6,10 +6,12 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from os import path
 import logging
+import sys
 from scrapy import signals
 import MySQLdb.cursors
 from scrapy.exceptions import DropItem
 from twisted.enterprise import adbapi
+from spiders import StringProcessor as SP
 
 logging.basicConfig(
     level=logging.WARNING,
@@ -199,7 +201,7 @@ class NewsPipeline(object):
                             put_time=%s,
                             comments_id=%s, comments_url=%s  where news_id=%s""",
                             (
-                                item['url'], item['title'], item['abstract'], item['source'], item['parent_name'],
+                                item['url'], item['title'], item['abstract'], item['source'], item.get["parent_name"],
                                 item['time'], item['comments_id'], item['comments_url'], item['news_id']
                             )
                         )
@@ -223,21 +225,31 @@ class NewsPipeline(object):
                         )
                 )
         elif item['flag'] == 'comment':
-            if conn.execute("select 1 from news_opin_tencent_comment where reply_id=%s", (item['reply_id'], )):
+            try:
+                if conn.execute("select 1 from news_opin_tencent_comment where reply_id=%s", (item['reply_id'], )):
+                    conn.execute(
+                            """update news_opin_tencent_comment set agree_count=%s where reply_id=%s""",
+                            (item['agree_count'], item['reply_id'])
+                    )
+                else:
+                    conn.execute(
+                            """insert into news_opin_tencent_comment (news_id, comments_id, put_time, comment, username, sex,
+                            reply_id, agree_count) values (%s, %s, %s, %s, %s, %s, %s, %s)""",
+                            (
+                                item['news_id'], item['comments_id'], item['datetime'], item['comment'],
+                                item['username'], item['sex'], item['reply_id'], item['agree_count']
+                            )
+                    )
+            except Exception as e:
+                logging.info("Comment process exception happen: "+str(e) +"\n" +item['comment'])
                 conn.execute(
-                        """update news_opin_tencent_comment set agree_count=%s where reply_id=%s""",
-                        (item['agree_count'], item['reply_id'])
+                    """insert into news_opin_tencent_comment (news_id, comments_id, put_time, comment, username, sex,
+                    reply_id, agree_count) values (%s, %s, %s, %s, %s, %s, %s, %s)""",
+                    (
+                        item['news_id'], item['comments_id'], item['datetime'], SP.filter_emoji(item['comment']),
+                        item['username'], item['sex'], item['reply_id'], item['agree_count']
+                    )
                 )
-            else:
-                conn.execute(
-                        """insert into news_opin_tencent_comment (news_id, comments_id, put_time, comment, username, sex,
-                        reply_id, agree_count) values (%s, %s, %s, %s, %s, %s, %s, %s)""",
-                        (
-                            item['news_id'], item['comments_id'], item['datetime'], item['comment'],
-                            item['username'], item['sex'], item['reply_id'], item['agree_count']
-                        )
-                )
-
 
     def _sohu_do_execute(self, conn, item, spider):
         """
