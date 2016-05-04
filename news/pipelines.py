@@ -194,19 +194,19 @@ class NewsPipeline(object):
     def _tencent_do_execute(self, conn, item, spider):
         if item['flag'] == 'article':
             if conn.execute("select 1 from news_opin_tencent_article where news_id=%s", (item['news_id'],)):
-                if  item['content'] == None:
+                if  item.get('content') == '':
                     try:
                         conn.execute(
                             """update news_opin_tencent_article set news_url=%s, title=%s, abstract=%s, source=%s, parent_name=%s,  
                             put_time=%s,
                             comments_id=%s, comments_url=%s  where news_id=%s""",
                             (
-                                item['url'], item['title'], item['abstract'], item['source'], item['parent_name'],
+                                item.get('url',''), item['title'], item['abstract'], item['source'], item['parent_name'],
                                 item['time'], item['comments_id'], item['comments_url'], item['news_id']
                             )
                         )
                     except Exception as e:
-                        
+                        logging.error("tencent article Exception:"+str(e))
                         conn.execute(
                             """update news_opin_tencent_article set comments_number=%s where news_id=%s""",
                             (item['comments_number'], item['news_id'])
