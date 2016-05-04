@@ -239,7 +239,7 @@ class NewsPipeline(object):
                         """insert into news_opin_tencent_comment (news_id, comments_id, put_time, comment, username, sex,
                         reply_id, agree_count) values (%s, %s, %s, %s, %s, %s, %s, %s)""",
                         (
-                            item['news_id'], item['comments_id'], item['datetime'], item['comment'],
+                            item['news_id'], item['comments_id'], item['datetime'], SP.filter_emoji(item['comment']),
                             item['username'], item['sex'], item['reply_id'], item['agree_count']
                         )
                 )
