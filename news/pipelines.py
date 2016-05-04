@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding:utf-8 -*-
 
 # Define your item pipelines here
 #
@@ -6,10 +6,12 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from os import path
 import logging
+import sys
 from scrapy import signals
 import MySQLdb.cursors
 from scrapy.exceptions import DropItem
 from twisted.enterprise import adbapi
+from spiders import StringProcessor as SP
 
 logging.basicConfig(
     level=logging.WARNING,
@@ -192,7 +194,7 @@ class NewsPipeline(object):
     def _tencent_do_execute(self, conn, item, spider):
         if item['flag'] == 'article':
             if conn.execute("select 1 from news_opin_tencent_article where news_id=%s", (item['news_id'],)):
-                if not item['content']:
+                if  item['content'] == None:
                     try:
                         conn.execute(
                             """update news_opin_tencent_article set news_url=%s, title=%s, abstract=%s, source=%s, parent_name=%s,  
@@ -291,4 +293,3 @@ class NewsPipeline(object):
 
     def _handle_error(self, failure, item, spider):
         logging.error(failure)
-

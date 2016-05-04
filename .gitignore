@@ -1,2 +1,7 @@
 *.pyc
 *.log
+*.xml
+.idea/.name
+*.iml
+pubopin/news_opin/migrations/0006_auto_20160429_1716.py
+pubopin/news_opin/migrations/0007_auto_20160429_1728.py

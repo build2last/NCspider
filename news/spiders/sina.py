@@ -20,12 +20,13 @@ import urllib2
 import re
 import datetime
 import json
+import logging
 import time
 import scrapy
 from urlparse import urlparse
 from news.items import SimpleNews,NewsItem,commentItem
 from scrapy.http import Request
-import logging
+from . import StringProcessor as SP
 
 
 logging.basicConfig(
@@ -81,7 +82,7 @@ class newsSpider(scrapy.Spider):
 			item=NewsItem()#item
 			temp=response.xpath('//meta[contains(@name,"comment")]/@content').extract_first()
 			if temp:			
-				temp = self.str_decode(temp)
+				temp = SP.html_decode(temp)
 			else: return
 			two_words=temp.split(":")
 			item["newsUrl"]=response.url
@@ -98,7 +99,7 @@ class newsSpider(scrapy.Spider):
 			yield item
 
 		elif "comment5" in response.url:
-			commentHML=self.str_decode(response.body)
+			commentHML=SP.html_decode(response.body)
 			value = json.loads(commentHML,strict=False)	  
 			try:
 
@@ -160,20 +161,5 @@ class newsSpider(scrapy.Spider):
 		except Exception as ex :	
 			logging.error("error  1:Parse ERROR"+str(ex))
 
-
-	def str_decode(self,tHTML):
-		"""
-		HTML解码
-		:param: url
-		:return: decoded html
-		"""
-		data = tHTML
-		if data:
-			charset=re.findall('encoding.*?"(\w+)"',data)
-			if len(charset)>0:
-				data=data.decode(charset[0])
-			if "gbk" in data:
-				data=data.decode("gbk")
-		return data
 
 
