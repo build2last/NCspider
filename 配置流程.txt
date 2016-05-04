@@ -1,0 +1,6 @@
+1. MySql
+CREATE DATABASE pub_opinion DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+2. pub_opinion目录下 
+python manage.py makemigrations   python manage.py migrate
+3. news目录下 
+scrapy allstart
