@@ -19,7 +19,7 @@ ITEM_PIPELINES = {
 			'news.pipelines.NewsPipeline':700,
         }
 
-LOG_LEVEL='WARN'
+LOG_LEVEL='ERROR'
 DOWNLOAD_DELAY = 0
 COOKIES_ENABLED = False
 
@@ -30,7 +30,7 @@ COMMANDS_MODULE = 'news.commands'
 MYSQL_HOST = 'localhost'
 MYSQL_PORT = 3306
 MYSQL_USER = 'root'
-MYSQL_PASSWD = 'liukun'
+MYSQL_PASSWD = 'brave2her'
 MYSQL_DB = 'pub_opinion'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

@@ -1,4 +1,4 @@
-# encoding:utf-8
+#encoding:utf-8
 """
 Django settings for pubopin project.
 
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'pub_opinion',
         'USER': 'root',
         'HOST': 'localhost',
-        'PASSWORD': 'liukun',
+        'PASSWORD': 'brave2her',
         'PORT': '3306'
     }
 }
