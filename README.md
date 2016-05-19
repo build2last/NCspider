@@ -6,6 +6,7 @@
     门户网站新闻有着微博不可替代的一些特点。 
 
 ###Written in [python], powered by [scrapy]. 
+请参考配置说明，为了方便展示，请结合django建立数据库
 
 ##简单介绍
 * 包括新浪新闻门户，腾讯新闻门户，搜狐新闻（移动端)**新闻**以及**评论**
@@ -26,11 +27,6 @@
 ###数据库使用
   1. 更改**settings.py**适应你的本地化，数据库的相关设置,或者在 pipeline中修改相关参数
   2. 做了一个匹配的Django models模型方便了解,查看[数据模型](https://github.com/build2last/NCspider/blob/master/web%20demo/news_opin/models.py)
-
-###分散版本运行
-  * /sina$ scrapy crawl sina
-  * /tencent$ scrapy crawl tencent
-  * /sohu$ scrapy crawl sohu
 
 ###All in one版本运行
   * /news$ scrapy allstart   即可运行所有爬虫
@@ -64,12 +60,10 @@
 
 
 ##声明
-* 欢迎一起交流一起玩
 * Email：**lancelotdev@163.com**
-* 水平亟待提高阶段，请多指教，不胜感激！
-* Author：liukun
-* Last-Modified：2016-03
-* 开源活
+* 欢迎互相交流
+* Author：刘坤 南京理工大学计算UN及科学与工程学院
+* Last-Modified：2016-05
 
 [python]:https://www.python.org/
 [scrapy]:http://scrapy.org/
