@@ -62,7 +62,7 @@
 ##声明
 * Email：**lancelotdev@163.com**
 * 欢迎互相交流
-* Author：刘坤 南京理工大学计算UN及科学与工程学院
+* Author：刘坤 南京理工大学计算机科学与工程学院
 * Last-Modified：2016-05
 
 [python]:https://www.python.org/
