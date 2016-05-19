@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'pub_opinion',
         'USER': 'root',
         'HOST': 'localhost',
-        'PASSWORD': 'brave2her',
+        'PASSWORD': 'liukun',
         'PORT': '3306'
     }
 }

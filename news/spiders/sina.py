@@ -41,9 +41,9 @@ class newsSpider(scrapy.Spider):
 	name = "sina"
 	pipelines = ['SinaNewsPipeline']
 	allowed_domains = ["sina.com.cn"]
-	delta=datetime.timedelta(days=1) 
-	yesterday=str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
-	news_date=yesterday#设定抓取新闻日期
+	delta = datetime.timedelta(days=1) 
+	yesterday = str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
+	news_date = yesterday#设定抓取新闻日期
 	start_urls = [
 		"http://roll.news.sina.com.cn/interface/rollnews_ch_out_interface.php?col=89&spec=&type=&date="
 		+news_date+"&ch=01&k=&offset_page=0&offset_num=0&num=5000&asc=&page="
@@ -51,24 +51,24 @@ class newsSpider(scrapy.Spider):
 
 
 	def __init__(self):
-		delta=datetime.timedelta(days=1) 
-		yesterday=str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
-		news_date=yesterday#设定抓取新闻日期
+		delta = datetime.timedelta(days=1) 
+		yesterday = str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
+		news_date = yesterday#设定抓取新闻日期
 		
 
 	def parse(self, response):
 		if  response.url.startswith("http://roll.news.sina.com.cn/"):
 			try:
-					response_html=response.body		 
-					newsDic=json.loads(self.sina_api_process(response_html),strict=False)	   
+					response_html =response.body		 
+					newsDic =json.loads(self.sina_api_process(response_html),strict=False)	   
 					for i in range(0,len(newsDic["list"])):
-						news_url=newsDic["list"][i]["url"] 
+						news_url =newsDic["list"][i]["url"] 
 						if news_url.startswith("http://video") or news_url.startswith("http://slide"):
 							continue							
 						item = SimpleNews()#item
-						item["flag"]="simplenews"
-						item['title'] =newsDic["list"][i]["title"].encode("utf-8")
-						item['newsUrl'] =news_url.encode("utf-8")
+						item["flag"] = "simplenews"
+						item['title'] = newsDic["list"][i]["title"].encode("utf-8")
+						item['newsUrl'] = news_url.encode("utf-8")
 						item['source'] ="sina"
 						item['category']=newsDic["list"][i]["channel"]["title"].encode("utf-8")
 						temp_date= datetime.datetime.utcfromtimestamp(newsDic["list"][i]["time"])#日期章格式转换
