@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+ï»¿ # -*- coding:utf-8 -*-
 import datetime
 import time
 from django.shortcuts import render
@@ -7,7 +7,7 @@ from .models import tencent_article,tencent_comment,sina_article,sina_comment,so
 from django.http import HttpResponse,Http404
 
 def show(request):
-    delta=datetime.timedelta(days=10)
+    delta=datetime.timedelta(days=2)#å±•ç¤ºæ—¥æœŸåŒºé—´
     hot_sina_news=sina_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
     hot_tencent_news=tencent_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
     hot_sohu_news=sohu_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
@@ -32,7 +32,7 @@ def sina_cmt(request,comment_id):
           )
 
 def sohu_cmt(request,comment_id):
-    #return HttpResponse(str(sohu_comment.objects.filter(news_id=comment_id).values("author")))#Áô×÷DEBUGÓÃ
+    #return HttpResponse(str(sohu_comment.objects.filter(news_id=comment_id).values("author")))#ç•™ä½œDEBUGç”¨
     lastern_comments=sohu_comment.objects.filter(news_id=comment_id)[:50]
     return render(request, 'news_opin/sohu_comment_list.html',
            {
