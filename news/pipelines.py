@@ -112,7 +112,7 @@ class NewsPipeline(object):
             host=settings.get('MYSQL_HOST',' localhost'),
             port=settings.get('MYSQL_PORT', 3306),
             user=settings.get('MYSQL_USER', 'root'),
-            db=settings.get('MYSQL_DB', 'YOURDATABASE'),
+            db=settings.get('MYSQL_DB', 'test'),
             passwd=settings.get('MYSQL_PASSWD'),
             charset='utf8',
             use_unicode=True,

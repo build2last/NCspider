@@ -46,7 +46,7 @@ class SohuSpider(Spider):
     'http://api.k.sohu.com/api/channel/v5/news.go?channelId=372&num=60'
     )
     def __init__(self):
-        self.date = str(datetime.now().strftime('%Y-%m-%d'))#date constraint
+        self.date = str(datetime.now().strftime('%Y-%m-%d'))#date constraint for Today
     def parse(self, response):
         url = response.url.split('/')
         if url[4].startswith('channel'):

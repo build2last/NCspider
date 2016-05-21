@@ -30,136 +30,137 @@ from . import StringProcessor as SP
 
 
 logging.basicConfig(
-			level=logging.INFO,
-			format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-			datefmt='%a, %d %b %Y %H:%M:%S',
-			filename='scrapy.log',
-			filemode='w')
+            level=logging.INFO,
+            format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+            datefmt='%a, %d %b %Y %H:%M:%S',
+            filename='scrapy.log',
+            filemode='w')
 
 
 class newsSpider(scrapy.Spider):
-	name = "sina"
-	pipelines = ['SinaNewsPipeline']
-	allowed_domains = ["sina.com.cn"]
-	delta = datetime.timedelta(days=1) 
-	yesterday = str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
-	news_date = yesterday#设定抓取新闻日期
-	start_urls = [
-		"http://roll.news.sina.com.cn/interface/rollnews_ch_out_interface.php?col=89&spec=&type=&date="
-		+news_date+"&ch=01&k=&offset_page=0&offset_num=0&num=5000&asc=&page="
-		]
+    name = "sina"
+    pipelines = ['SinaNewsPipeline']
+    allowed_domains = ["sina.com.cn"]
+    delta = datetime.timedelta(days=1) 
+    yesterday = str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
+    today = str(datetime.datetime.now().strftime("20%y-%m-%d"))
+    news_date = today#yesterday#设定抓取新闻日期
+    start_urls = [
+        "http://roll.news.sina.com.cn/interface/rollnews_ch_out_interface.php?col=89&spec=&type=&date="
+        +news_date+"&ch=01&k=&offset_page=0&offset_num=0&num=5000&asc=&page="
+        ]
 
 
-	def __init__(self):
-		delta = datetime.timedelta(days=1) 
-		yesterday = str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
-		news_date = yesterday#设定抓取新闻日期
-		
+    def __init__(self):
+        delta = datetime.timedelta(days=1) 
+        yesterday = str((datetime.datetime.now()-delta).strftime("20%y-%m-%d"))
+        news_date = yesterday#设定抓取新闻日期
+        
 
-	def parse(self, response):
-		if  response.url.startswith("http://roll.news.sina.com.cn/"):
-			try:
-					response_html =response.body		 
-					newsDic =json.loads(self.sina_api_process(response_html),strict=False)	   
-					for i in range(0,len(newsDic["list"])):
-						news_url =newsDic["list"][i]["url"] 
-						if news_url.startswith("http://video") or news_url.startswith("http://slide"):
-							continue							
-						item = SimpleNews()#item
-						item["flag"] = "simplenews"
-						item['title'] = newsDic["list"][i]["title"].encode("utf-8")
-						item['newsUrl'] = news_url.encode("utf-8")
-						item['source'] ="sina"
-						item['category']=newsDic["list"][i]["channel"]["title"].encode("utf-8")
-						temp_date= datetime.datetime.utcfromtimestamp(newsDic["list"][i]["time"])#日期章格式转换
-						item['put_time']=temp_date.strftime('%Y-%m-%d %H:%M:%S')
-						yield Request(url=newsDic["list"][i]["url"], callback=self.parse)
-						yield item
-			except Exception as ex :	
-				logging.error("error0:Parse ERROR"+str(ex))				
-		
-		elif (not response.url.startswith("http://roll.news.sina.com.cn/")) and "comment5" not in response.url:	
-			item=NewsItem()#item
-			temp=response.xpath('//meta[contains(@name,"comment")]/@content').extract_first()
-			if temp:			
-				temp = SP.html_decode(temp)
-			else: return
-			two_words=temp.split(":")
-			item["newsUrl"]=response.url
-			item['news_ID']=two_words[1].strip("comos-").encode("utf-8")
-			comment_url="http://comment5.news.sina.com.cn/page/info?format=json&channel="+two_words[0]+"&newsid="+two_words[1]+"&page_size=200"
-			item['comment_url']=comment_url.encode("utf-8")
-			html_list=response.xpath("//div[@id='artibody']//p/text()").extract()
-			news_content=''
-			for i in html_list:
-				news_content=news_content+i
-			item['news_body']=news_content.encode("utf-8")
-			item['flag']="news_body"
-			yield Request(url=comment_url,callback=self.parse)
-			yield item
+    def parse(self, response):
+        if  response.url.startswith("http://roll.news.sina.com.cn/"):
+            try:
+                    response_html =response.body         
+                    newsDic =json.loads(self.sina_api_process(response_html),strict=False)     
+                    for i in range(0,len(newsDic["list"])):
+                        news_url =newsDic["list"][i]["url"] 
+                        if news_url.startswith("http://video") or news_url.startswith("http://slide"):
+                            continue                            
+                        item = SimpleNews()#item
+                        item["flag"] = "simplenews"
+                        item['title'] = newsDic["list"][i]["title"].encode("utf-8")
+                        item['newsUrl'] = news_url.encode("utf-8")
+                        item['source'] ="sina"
+                        item['category']=newsDic["list"][i]["channel"]["title"].encode("utf-8")
+                        temp_date= datetime.datetime.utcfromtimestamp(newsDic["list"][i]["time"])#日期章格式转换
+                        item['put_time']=temp_date.strftime('%Y-%m-%d %H:%M:%S')
+                        yield Request(url=newsDic["list"][i]["url"], callback=self.parse)
+                        yield item
+            except Exception as ex :    
+                logging.error("error0:Parse ERROR"+str(ex))             
+        
+        elif (not response.url.startswith("http://roll.news.sina.com.cn/")) and "comment5" not in response.url: 
+            item=NewsItem()#item
+            temp=response.xpath('//meta[contains(@name,"comment")]/@content').extract_first()
+            if temp:            
+                temp = SP.html_decode(temp)
+            else: return
+            two_words=temp.split(":")
+            item["newsUrl"]=response.url
+            item['news_ID']=two_words[1].strip("comos-").encode("utf-8")
+            comment_url="http://comment5.news.sina.com.cn/page/info?format=json&channel="+two_words[0]+"&newsid="+two_words[1]+"&page_size=200"
+            item['comment_url']=comment_url.encode("utf-8")
+            html_list=response.xpath("//div[@id='artibody']//p/text()").extract()
+            news_content=''
+            for i in html_list:
+                news_content=news_content+i
+            item['news_body']=news_content.encode("utf-8")
+            item['flag']="news_body"
+            yield Request(url=comment_url,callback=self.parse)
+            yield item
 
-		elif "comment5" in response.url:
-			commentHML=SP.html_decode(response.body)
-			value = json.loads(commentHML,strict=False)	  
-			try:
+        elif "comment5" in response.url:
+            commentHML=SP.html_decode(response.body)
+            value = json.loads(commentHML,strict=False)   
+            try:
 
-				news_item=NewsItem()#item
-				news_item["comments_number"]=value["result"]["count"]["total"]
-				news_item["flag"]="cmt number"			
-				news_item["news_ID"]=value["result"]["news"]["newsid"].split('-')[-1].encode("utf-8")
-				yield news_item
-				cmlist=value["result"]["cmntlist"]
-				item=commentItem()#item
-				item=commentItem()#item
-				for i in range(len(cmlist)):
-						item["flag"]="comment"		
-						item["status"]=cmlist[i]["status"].encode("utf-8")
-						item["usertype"]=cmlist[i]["usertype"].encode("utf-8")
-						item["thread"]=cmlist[i]["thread"].encode("utf-8")
-						item["parent"]=cmlist[i]["parent"].encode("utf-8")
-						item["level"]=cmlist[i]["level"].encode("utf-8")
-						item["ip"]=cmlist[i]["ip"].encode("utf-8")
-						item["area"]=cmlist[i]["area"].encode("utf-8")
-						item["newsid"]=cmlist[i]["newsid"].encode("utf-8")
-						item["mid"]=cmlist[i]["mid"].encode("utf-8")
-						item["against"]=cmlist[i]["against"].encode("utf-8")
-						item["content"]=cmlist[i]["content"].encode("utf-8")
-						item["nick"]=cmlist[i]["nick"].encode("utf-8")
-						item["length"]=cmlist[i]["length"].encode("utf-8")
-						item["rank"]=cmlist[i]["rank"].encode("utf-8")
-						item["time"]=cmlist[i]["time"].encode("utf-8")
-						item["vote"]=cmlist[i]["vote"].encode("utf-8")
-						item["config"]=cmlist[i]["config"].encode("utf-8")
-						item["agree"]=cmlist[i]["agree"].encode("utf-8")
-						item["uid"]=cmlist[i]["uid"].encode("utf-8")
-						item["newsUrl"]=response.url
-						yield item
-			except Exception as e:
-				pass #logging.error("Comment_analyse error:"+str(e))
-				
+                news_item=NewsItem()#item
+                news_item["comments_number"]=value["result"]["count"]["total"]
+                news_item["flag"]="cmt number"          
+                news_item["news_ID"]=value["result"]["news"]["newsid"].split('-')[-1].encode("utf-8")
+                yield news_item
+                cmlist=value["result"]["cmntlist"]
+                item=commentItem()#item
+                item=commentItem()#item
+                for i in range(len(cmlist)):
+                        item["flag"]="comment"      
+                        item["status"]=cmlist[i]["status"].encode("utf-8")
+                        item["usertype"]=cmlist[i]["usertype"].encode("utf-8")
+                        item["thread"]=cmlist[i]["thread"].encode("utf-8")
+                        item["parent"]=cmlist[i]["parent"].encode("utf-8")
+                        item["level"]=cmlist[i]["level"].encode("utf-8")
+                        item["ip"]=cmlist[i]["ip"].encode("utf-8")
+                        item["area"]=cmlist[i]["area"].encode("utf-8")
+                        item["newsid"]=cmlist[i]["newsid"].encode("utf-8")
+                        item["mid"]=cmlist[i]["mid"].encode("utf-8")
+                        item["against"]=cmlist[i]["against"].encode("utf-8")
+                        item["content"]=cmlist[i]["content"].encode("utf-8")
+                        item["nick"]=cmlist[i]["nick"].encode("utf-8")
+                        item["length"]=cmlist[i]["length"].encode("utf-8")
+                        item["rank"]=cmlist[i]["rank"].encode("utf-8")
+                        item["time"]=cmlist[i]["time"].encode("utf-8")
+                        item["vote"]=cmlist[i]["vote"].encode("utf-8")
+                        item["config"]=cmlist[i]["config"].encode("utf-8")
+                        item["agree"]=cmlist[i]["agree"].encode("utf-8")
+                        item["uid"]=cmlist[i]["uid"].encode("utf-8")
+                        item["newsUrl"]=response.url
+                        yield item
+            except Exception as e:
+                pass #logging.error("Comment_analyse error:"+str(e))
+                
 
-	def sina_api_process(self,res):
-		"""
-		json格式清理，处理api 的response 返回的json,包括1.json数据说明 2.会引起错误的特殊字符
-		"""
-		try:
-			data=res.decode("gbk").encode("utf-8")
-			value=data[14:-1]
-			value=value.replace("'s "," s ")
-			keylist=["serverSeconds","last_time","path","title","cType","count","offset_page","offset_num","list","channel","url","type","pic"]
-			#关键字+ 空格作为识别键值关键字的格式
-			for i in keylist:            
-				value=value.replace(i+" ","\""+i+"\"")
-			value=value.replace("time :","\"time\":")
-			value=value.replace("id :","\"id\":")	
-			#去除会引起错误的 特殊字符
-			badwords=["\b"]        
-			for i in badwords:
-				value=value.replace(i,"")
-			value=value.replace("'", "\"") 
-			return value
-		except Exception as ex :	
-			logging.error("error  1:Parse ERROR"+str(ex))
+    def sina_api_process(self,res):
+        """
+        json格式清理，处理api 的response 返回的json,包括1.json数据说明 2.会引起错误的特殊字符
+        """
+        try:
+            data=res.decode("gbk").encode("utf-8")
+            value=data[14:-1]
+            value=value.replace("'s "," s ")
+            keylist=["serverSeconds","last_time","path","title","cType","count","offset_page","offset_num","list","channel","url","type","pic"]
+            #关键字+ 空格作为识别键值关键字的格式
+            for i in keylist:            
+                value=value.replace(i+" ","\""+i+"\"")
+            value=value.replace("time :","\"time\":")
+            value=value.replace("id :","\"id\":")   
+            #去除会引起错误的 特殊字符
+            badwords=["\b"]        
+            for i in badwords:
+                value=value.replace(i,"")
+            value=value.replace("'", "\"") 
+            return value
+        except Exception as ex :    
+            logging.error("error  1:Parse ERROR"+str(ex))
 
 
 

@@ -42,8 +42,7 @@ class TencentSpider(Spider):
     )
 
     def __init__(self):
-        self.date = datetime.now().strftime("%Y-%m-%d")
-
+        self.date = datetime.now().strftime("%Y-%m-%d")  # For today's news
 
     def parse(self, response):
         try:
