@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
 """
-#author: 
-#Email: lancelotdev@163.com
-#输出数据已经全部转为UTF-8，待完善：对花边(图片)新闻 & 视频新闻的处理
-#-----说明-----：
+author: liu kun
+Email: lancelotdev@163.com
+爬虫失效请联系我
+输出数据已经全部转为UTF-8，待完善：对花边(图片)新闻 & 视频新闻的处理
+-----说明-----：
 1.[info]接口返回的网友互动量信息如下，我采用total反应热度，但是获取的评论数量为“show”少于总数量
 "count": {
 "qreply": 17313,
@@ -13,7 +14,6 @@
 2.[INFO]一些新闻内容未做处理
 彩票信息 http://sports.sina.com.cn/l/2016-02-24/doc-ifxprucs6460405.shtml
 体育视频 http://sports.sina.com.cn/uclvideo/bn/2016-02-24/050565188721.html
-
 --------------
 """
 import urllib2

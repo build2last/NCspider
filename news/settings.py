@@ -31,7 +31,7 @@ MYSQL_HOST = 'localhost'
 MYSQL_PORT = 3306
 MYSQL_USER = 'root'
 MYSQL_PASSWD = 'liukun'
-MYSQL_DB = 'pub_opinion'
+MYSQL_DB = 'YOURDATABASE'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'news (+http://www.yourdomain.com)'

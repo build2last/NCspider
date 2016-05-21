@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 # Define your item pipelines here
-#
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from os import path
@@ -25,73 +24,87 @@ logging.basicConfig(
 class NewsPipeline(object):
     def __init__(self,dbpool):
         self.dbpool = dbpool
-        #---------sina-------------
-        self.dbpool.runQuery("""create table IF NOT EXISTS news_opin_sina_article(
-        news_id varchar(100) not null,
-        primary key(news_id),
-        news_url varchar(200),
-        title varchar(200),
-        source varchar(50),
-        put_time datetime,
-        comments_url varchar(250),
-        category varchar(30),
-        content text
-        )""")
-        
-        self.dbpool.runQuery("""create table IF NOT EXISTS news_opin_sina_comment( 
-            news_id varchar(100),    
-            m_id varchar(100) not null,
-            username varchar(60),
-            comment text,
-            put_time datetime,
-            sex char(10),
-            reply_id varchar(50),
-            agree_count int,
-            against_count int)""")
-        #--------tencent-----------
-        #self.dbpool.runQuery("""create table if not exists `pub_opinion`.`news_opin_tencent_article`(
-        #       news_id varchar(100) not null,
-        #       primary key(news_id),
-        #       news_url varchar(200),
-        #       title varchar(200),
-        #       abstract varchar(200),
-        #       source varchar(50),
-        #       put_time datetime,
-        #       comments_url varchar(200),
-        #       comments_id varchar(50),
-        #       comments_number int,
-        #       parent_name varchar(200),
-        #       content text
-        #      )charset='utf8'""")
-        #self.dbpool.runQuery("""create table if not exists pub_opinion`.`news_opin_tencent_comment`(     
-        #       news_id varchar(100) not null,
-        #       comments_id varchar(10),
-        #       sex char(10),
-        #       username varchar(50),
-        #       reply_id varchar(50),
-        #       agree_count int,
-        #       put_time varchar(100),
-        #       comment text
-        #       )charset='utf8'""")
-        
-        #---------sohu
-        #self.dbpool.runQuery("""create table if not exists `sohu`.` news_opin_sohu_article`(
-        #        news_id varchar(100) not null,
-        #        primary key(news_id),
-        #        title varchar(200),   
-        #        time datetime,
-        #        comments_number int,
-        #        content text
-        #        )charset='utf8'""")
-        #self.dbpool.runQuery("""create table if not exists `sohu`.` news_opin_sohu_comment`(     
-        #        news_id varchar(100) not null,
-        #primary key(news_id),
-        #        comments_id varchar(100),   
-        #        author varchar(50),           
-        #        datetime varchar(100),
-        #        comment text
-        #        )charset='utf8'""")
+        #---------create database-------------
+        self.dbpool.runQuery("""CREATE TABLE IF NOT EXISTS news_opin_tencent_comment (
+                                                  id int(11) NOT NULL AUTO_INCREMENT,
+                                                  news_id varchar(200) DEFAULT NULL,
+                                                  comments_id varchar(200) DEFAULT NULL,
+                                                  username varchar(200) DEFAULT NULL,
+                                                  comment longtext,
+                                                  put_time datetime DEFAULT NULL,
+                                                  sex varchar(10) DEFAULT NULL,
+                                                  reply_id varchar(200) DEFAULT NULL,
+                                                  agree_count int(11) DEFAULT NULL,
+                                                  PRIMARY KEY (id)
+                                                ) ENGINE=InnoDB AUTO_INCREMENT=12936 DEFAULT CHARSET=utf8;""")
 
+        self.dbpool.runQuery( """CREATE TABLE IF NOT EXISTS news_opin_tencent_article (
+                                                  id int(11) NOT NULL AUTO_INCREMENT,
+                                                  news_id varchar(100) DEFAULT NULL,
+                                                  parent_name varchar(200) DEFAULT NULL,
+                                                  news_url varchar(200) DEFAULT NULL,
+                                                  title varchar(200) DEFAULT NULL,
+                                                  abstract varchar(200) DEFAULT NULL,
+                                                  source varchar(50) DEFAULT NULL,
+                                                  put_time datetime DEFAULT NULL,
+                                                  content longtext,
+                                                  comments_id varchar(100) DEFAULT NULL,
+                                                  comments_url varchar(200) DEFAULT NULL,
+                                                  comments_number int(11) NOT NULL,
+                                                  PRIMARY KEY (id)
+                                                ) ENGINE=InnoDB AUTO_INCREMENT=1599 DEFAULT CHARSET=utf8;""")
+
+        self.dbpool.runQuery("""CREATE TABLE IF NOT EXISTS news_opin_sohu_article (
+                                                  news_id varchar(150) NOT NULL,
+                                                  title varchar(300) DEFAULT NULL,
+                                                  put_time datetime DEFAULT NULL,
+                                                  comments_number int(11) DEFAULT NULL,
+                                                  content longtext,
+                                                  news_url varchar(200) DEFAULT NULL,
+                                                  PRIMARY KEY (news_id)
+                                                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;""")
+
+        self.dbpool.runQuery("""CREATE TABLE IF NOT EXISTS news_opin_sohu_comment (
+                                                  id int(11) NOT NULL AUTO_INCREMENT,
+                                                  comments_id varchar(200) DEFAULT NULL,
+                                                  author varchar(50) DEFAULT NULL,
+                                                  datetime datetime DEFAULT NULL,
+                                                  comment longtext,
+                                                  news_id varchar(150) NOT NULL,
+                                                  PRIMARY KEY (id),
+                                                  KEY news_opin_soh_news_id_2789b31a_fk_news_opin_sohu_article_news_id (news_id),
+                                                  CONSTRAINT news_opin_soh_news_id_2789b31a_fk_news_opin_sohu_article_news_id FOREIGN KEY (news_id) REFERENCES news_opin_sohu_article (news_id)
+                                                ) ENGINE=InnoDB AUTO_INCREMENT=3834 DEFAULT CHARSET=utf8;""")
+
+        self.dbpool.runQuery("""CREATE TABLE IF NOT EXISTS news_opin_sina_article (
+                                                  id int(11) NOT NULL AUTO_INCREMENT,
+                                                  news_id varchar(200) DEFAULT NULL,
+                                                  title varchar(200) DEFAULT NULL,
+                                                  news_url varchar(200) DEFAULT NULL,
+                                                  source varchar(50) DEFAULT NULL,
+                                                  category varchar(50) DEFAULT NULL,
+                                                  put_time datetime DEFAULT NULL,
+                                                  content longtext,
+                                                  comments_url varchar(250) DEFAULT NULL,
+                                                  comments_number int(11) DEFAULT NULL,
+                                                  PRIMARY KEY (id)
+                                                ) ENGINE=InnoDB AUTO_INCREMENT=1158 DEFAULT CHARSET=utf8;""")
+
+        self.dbpool.runQuery("""CREATE TABLE IF NOT EXISTS news_opin_sina_comment (
+                                                  id int(11) NOT NULL AUTO_INCREMENT,
+                                                  news_id varchar(200) DEFAULT NULL,
+                                                  m_id varchar(200) NOT NULL,
+                                                  username varchar(100) DEFAULT NULL,
+                                                  comment longtext,
+                                                  put_time datetime DEFAULT NULL,
+                                                  parent_id varchar(200) DEFAULT NULL,
+                                                  agree_count int(11) DEFAULT NULL,
+                                                  against_count int(11) DEFAULT NULL,
+                                                  PRIMARY KEY (id),
+                                                  UNIQUE KEY m_id (m_id)
+                                                ) ENGINE=InnoDB AUTO_INCREMENT=2326 DEFAULT CHARSET=utf8;""")
+
+        
     @classmethod
     def from_crawler(cls, crawler):
         settings = crawler.settings
@@ -99,7 +112,7 @@ class NewsPipeline(object):
             host=settings.get('MYSQL_HOST',' localhost'),
             port=settings.get('MYSQL_PORT', 3306),
             user=settings.get('MYSQL_USER', 'root'),
-            db=settings.get('MYSQL_DB', 'pub_opinion'),
+            db=settings.get('MYSQL_DB', 'YOURDATABASE'),
             passwd=settings.get('MYSQL_PASSWD'),
             charset='utf8',
             use_unicode=True,
