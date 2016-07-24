@@ -6,16 +6,20 @@
     门户网站新闻有着微博不可替代的一些特点。 
 
 ###Written in [python], powered by [scrapy]. 
-请参考配置说明，为了方便展示，请结合django建立数据库
+请参考配置说明，为了方便展示，可以结合django建立数据库
 
+只需要爬虫的话建立database后修改settings.py相应参数就好了
+
+对于网页的解析只用了re正则解析
+
+爬虫可以单独使用，暂时只提供mysql支持
 ##简单介绍
 * 包括新浪新闻门户，腾讯新闻门户，搜狐新闻（移动端)**新闻**以及**评论**
 * 独立为3个scarpy项目包
-* 2016-02, Sina, Tencent, Sohu(mobile) news &comments included.
 * 每日新闻数量上千，评论数量级数十万
 
 ##使用手册
-  使用或再开发前请简单阅读一下spider源码中的注释便于使用
+  使用或再开发前请简单阅读一下源码中的注释便于使用
 
 ###配置运行环境---Way to insatll scrapy on ubuntu 
   1. sudo apt-get install libxml2-dev libxslt1-dev
@@ -48,8 +52,7 @@
 1. 编码问题：
 中文网页：对中文的解析需要特别注意编码问题，utf-8是多数，但有时网站会采用GBK,GBK2312等编码格式。
 数据库编码：出现了一大堆乱七八糟的文字，可以怀疑数据库字段编码跟内容编码不一致。
-2. 休息一晚DEBUG效果拔群，熬夜伤身&负面地影响颜值。
-3. ...
+2. 利用django建立数据库时会有一些被默认的参数可能会被忽略，比如说数据项默认为非空 not null = true,所以说：使用前请认真阅读document
 
 ###In the future：
 * 内容更全面，有更棒的接口请联系我

@@ -4,3 +4,5 @@ CREATE DATABASE pub_opinion DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 python manage.py makemigrations   python manage.py migrate
 3. news目录下
 scrapy allstart
+
+如果只是需要跑爬虫，跳过第二步也可以
