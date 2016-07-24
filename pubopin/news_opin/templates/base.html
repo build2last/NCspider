@@ -1,8 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
-	  
-	<meta charset="utf-8">
+    <!--
+        * author:    liu kun
+        * edit date: 2016-07
+    -->
+	    <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
 	<title>Public Voice</title>
@@ -11,12 +14,15 @@
 
     {% block navbar %}{% endblock navbar %}
     {% block content %}{% endblock content %}
-    {% block footer %}{% endblock footer %}
-    {% block script %}{% endblock script %}
-
+    
+    <!-- footer start -->
+    <footer style="bottom: 0; margin-top: 20px;">
+            <p align="center">科研训练作品展示</p>
+            <p align="center">All Rights Reserved 2014-{% now "Y" %}  小组：刘坤，龚志远，方永鸣，毛鑫鑫</p>
+    </footer>
+    <!-- footer end -->
     <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
   </body>
 
 </html>

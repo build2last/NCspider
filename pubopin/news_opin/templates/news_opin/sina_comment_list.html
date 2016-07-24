@@ -9,11 +9,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span4">
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
 			<h1 style="text-align: center;">新闻评论</h1>
 			<h2 style="text-align: center;">最新</h2>
+            <h2>评论总体情感倾向：{{ attitude }}</h2>
 			<table class="table table-hover;">
 				<thead>
 				    <tr>
@@ -28,7 +29,7 @@
 				{% for cmt in comments_list %}
 				    <tr>
 				        <td>{{ cmt.username }}</a></td>
-				        <td>{{ cmt.comment}}</td>
+				        <td style="background-color:{{ cmt.sense_color }}">{{ cmt.comment }}</td>
 				        <td>{{ cmt.put_time }}</td>
 						<td>{{ cmt.agree_count }}</td>
 				    </tr>

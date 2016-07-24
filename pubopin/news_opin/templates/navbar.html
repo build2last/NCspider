@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block navbar_css %}
 <style>
     html {
@@ -48,32 +48,20 @@
 </style>
 {% endblock navbar_css %}
 {% block navbar %}
-<div id="site_navbar">
-<div class="navbar navbar navbar-default" role="navigation">
 <div class="container">
-    <div class="navbar-collapse collapse navbar-left" style="margin-top: 5px;">
-            <ul class="nav nav-pills">
-                <li class="active"><a href="/news">首页</a></li>
-                <li><a href="">新浪新闻展示</a></li>
-				<li><a href="">腾讯新闻展示</a></li>
-				<li><a href="">搜狐新闻展示</a></li>
-            </ul>
-    </div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="jumbotron">
+				<h1><font face="微软雅黑" color="#8B008B">
+					❤舆情获取与分析
+                    </font>
+                </h1>
+				<p>
+					基于从腾讯、新浪、搜狐等新闻网站抓取的新闻和评论数据，进行简单的感情倾向分析，目前对评论的分析结果不太理想，语言分析模型有待进一步训练改进。
+				</p>
+			</div>
+		</div>
+	</div>
 </div>
-</div>
-</div>
-
 {% endblock navbar %}
-{% block footer %}
-<!-- footer start -->
-<div id="site_footer">
-    <div class="container">
-        <div class="footer_text">
-            <small class="pull-right">科研训练展示平台</small>
-            <br>
-            <p><small class="pull-right">©版权所有 2014-{% now "Y" %},开发组保留一切权利</small></p>
-        </div>
-    </div>
-</div>
-<!-- footer end -->
-{% endblock footer%}
+
