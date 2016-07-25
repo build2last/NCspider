@@ -8,7 +8,7 @@ from django.http import HttpResponse,Http404
 from snownlp import SnowNLP as nlp
 
 def show(request):
-    delta=datetime.timedelta(days=100)#展示日期区间
+    delta=datetime.timedelta(days=2)#展示日期区间
     hot_sina_news=sina_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
     hot_tencent_news=tencent_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
     hot_sohu_news=sohu_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
@@ -50,7 +50,7 @@ def sina_cmt(request,comment_id):
     return render(request, 'news_opin/sina_comment_list.html',
            {
              'comments_list':lastern_comments,
-             'attitude':attitude + "  积极指数:"+ str(tendency_number),
+             'attitude':attitude + '?',
            }  
           )
 
@@ -81,7 +81,7 @@ def sohu_cmt(request,comment_id):
     return render(request, 'news_opin/sohu_comment_list.html',
            {
              'sohu_comments_list':lastern_comments,
-             'attitude':attitude + "  积极指数:"+ str(tendency_number),
+             'attitude':attitude + "?",
            }  
           )
 
