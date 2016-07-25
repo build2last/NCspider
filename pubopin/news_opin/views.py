@@ -67,7 +67,7 @@ def sina_cmt(request):
 def sohu_cmt(request):
     try:
         #return HttpResponse(str(sohu_comment.objects.filter(news_id=comment_id).values("author")))#留作DEBUG用
-        comment_id='comos-'+request.GET.get('comment_id')
+        comment_id = request.GET.get('comment_id')
         news_title = request.GET.get('title')
         lastern_comments=sohu_comment.objects.filter(news_id=comment_id)[:50]
         attitude_tendency = []
