@@ -6,6 +6,6 @@ from . import views
 
 urlpatterns = [
 	url(r'^$',views.show),
-    url(r'^comment/sohu/(?P<comment_id>.+)/$',views.sohu_cmt,name='comment_id'),
-    url(r'^comment/sina/(?P<comment_id>.+)/$',views.sina_cmt,name='comment_id'),
+    url(r'^comment/sohu/cmt/$',views.sohu_cmt),
+    url(r'^comment/sina/cmt/$',views.sina_cmt),
 ]

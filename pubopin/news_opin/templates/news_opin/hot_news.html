@@ -26,7 +26,7 @@
 				{% for News in hot_sina_news %}
 				    <tr>
 				        <td><a href="{{ News.news_url }}">{{ News.title }}</a></td>
-				        <td><a href="comment/sina/{{ News.news_id }}">{{ News.comments_number}}</a></td>
+				        <td><a href="comment/sina/cmt/?comment_id={{ News.news_id }}&title={{ News.title }}">{{ News.comments_number}}</a></td>
 						<td>{{ News.category }}</td>
 				        <td><a href="{{  News.comments_url  }}">{{ News.put_time }}</a></td>
 				    </tr>
@@ -57,7 +57,7 @@
 				{% for News in hot_sohu_news %}
 				    <tr>
 				        <td><a href="{{ News.news_url }}">{{ News.title }}</a></td>
-				        <td><a href="comment/sohu/{{ News.news_id }}/">{{ News.comments_number}}</td>
+				        <td><a href="comment/sohu/cmt/?comment_id={{ News.news_id }}&title={{ News.title }}">{{ News.comments_number}}</td>
 				        <td>{{ News.put_time }}</td>
 				    </tr>
 				{% endfor %}
