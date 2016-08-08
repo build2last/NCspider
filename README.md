@@ -30,7 +30,7 @@
 
 ###数据库使用
   1. 更改**settings.py**适应你的本地化，数据库的相关设置,或者在 pipeline中修改相关参数
-  2. 做了一个匹配的Django models模型方便了解,查看[数据模型](https://github.com/build2last/NCspider/blob/master/web%20demo/news_opin/models.py)
+  2. 做了一个匹配的Django models模型方便了解,查看[数据模型](https://github.com/build2last/NCspider/blob/master/pubopin/news_opin/models.py)
 
 ###All in one版本运行
   * /news$ scrapy allstart   即可运行所有爬虫
