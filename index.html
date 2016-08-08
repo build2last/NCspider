@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Ncspider by build2last</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Ncspider</h1>
+      <h2 class="project-tagline">中文门户网站新闻和评论抓取。Powered by scrapy.</h2>
+      <a href="https://github.com/build2last/NCspider" class="btn">View on GitHub</a>
+      <a href="https://github.com/build2last/NCspider/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/build2last/NCspider/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="ncspider--项目简介" class="anchor" href="#ncspider--%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NCspider  项目简介</h1>
+
+<h2>
+<a id="中文门户网站新闻和评论抓取" class="anchor" href="#%E4%B8%AD%E6%96%87%E9%97%A8%E6%88%B7%E7%BD%91%E7%AB%99%E6%96%B0%E9%97%BB%E5%92%8C%E8%AF%84%E8%AE%BA%E6%8A%93%E5%8F%96" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>中文门户网站新闻和评论抓取。</h2>
+
+<h3>
+<a id="开发目的" class="anchor" href="#%E5%BC%80%E5%8F%91%E7%9B%AE%E7%9A%84" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>开发目的</h3>
+
+<pre><code>获取门户网站原始新闻及评论素材，结构化存储后为分析新闻舆情提供数据基础。 
+门户网站新闻有着微博不可替代的一些特点。 
+</code></pre>
+
+<h3>
+<a id="written-in-python-powered-by-scrapy" class="anchor" href="#written-in-python-powered-by-scrapy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Written in <a href="https://www.python.org/">python</a>, powered by <a href="http://scrapy.org/">scrapy</a>.</h3>
+
+<p>请参考配置说明，为了方便展示，可以结合django建立数据库</p>
+
+<p>只需要爬虫的话建立database后修改settings.py相应参数就好了</p>
+
+<p>对于网页的解析只用了re正则解析</p>
+
+<p>爬虫可以单独使用，暂时只提供mysql支持</p>
+
+<h2>
+<a id="简单介绍" class="anchor" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>简单介绍</h2>
+
+<ul>
+<li>包括新浪新闻门户，腾讯新闻门户，搜狐新闻（移动端)<strong>新闻</strong>以及<strong>评论</strong>
+</li>
+<li>独立为3个scarpy项目包</li>
+<li>每日新闻数量上千，评论数量级数十万</li>
+</ul>
+
+<h2>
+<a id="使用手册" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使用手册</h2>
+
+<p>使用或再开发前请简单阅读一下源码中的注释便于使用</p>
+
+<h3>
+<a id="配置运行环境---way-to-insatll-scrapy-on-ubuntu" class="anchor" href="#%E9%85%8D%E7%BD%AE%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83---way-to-insatll-scrapy-on-ubuntu" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置运行环境---Way to insatll scrapy on ubuntu</h3>
+
+<ol>
+<li>sudo apt-get install libxml2-dev libxslt1-dev</li>
+<li>sudo apt-get install python-dev</li>
+<li>sudo apt-get install libssl-dev </li>
+<li>sudo apt-get install libffi-dev</li>
+<li>pip install -r requirements.txt</li>
+</ol>
+
+<h3>
+<a id="数据库使用" class="anchor" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%BF%E7%94%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>数据库使用</h3>
+
+<ol>
+<li>更改<strong>settings.py</strong>适应你的本地化，数据库的相关设置,或者在 pipeline中修改相关参数</li>
+<li>做了一个匹配的Django models模型方便了解,查看<a href="https://github.com/build2last/NCspider/blob/master/pubopin/news_opin/models.py">数据模型</a>
+</li>
+</ol>
+
+<h3>
+<a id="all-in-one版本运行" class="anchor" href="#all-in-one%E7%89%88%E6%9C%AC%E8%BF%90%E8%A1%8C" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>All in one版本运行</h3>
+
+<ul>
+<li>/news$ scrapy allstart   即可运行所有爬虫</li>
+<li>/news$ scrapy crawl sina</li>
+<li>/news$ scrapy crawl tencent</li>
+<li>/news$ scrapy crawl sohu</li>
+</ul>
+
+<h3>
+<a id="配套系统" class="anchor" href="#%E9%85%8D%E5%A5%97%E7%B3%BB%E7%BB%9F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配套系统</h3>
+
+<pre><code>python 2.7及标准库
+测试中使用Mysql数据库  
+Linux Ubuntu 14.04测试通过
+理论上跨平台
+</code></pre>
+
+<h3>
+<a id="一些python库的引用" class="anchor" href="#%E4%B8%80%E4%BA%9Bpython%E5%BA%93%E7%9A%84%E5%BC%95%E7%94%A8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>一些python库的引用：</h3>
+
+<ul>
+<li>Scrapy 1.0</li>
+</ul>
+
+<h2>
+<a id="探过的坑" class="anchor" href="#%E6%8E%A2%E8%BF%87%E7%9A%84%E5%9D%91" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>探过的坑：</h2>
+
+<ol>
+<li>编码问题：
+中文网页：对中文的解析需要特别注意编码问题，utf-8是多数，但有时网站会采用GBK,GBK2312等编码格式。
+数据库编码：出现了一大堆乱七八糟的文字，可以怀疑数据库字段编码跟内容编码不一致。</li>
+<li>利用django建立数据库时会有一些被默认的参数可能会被忽略，比如说数据项默认为非空 not null = true,所以说：使用前请认真阅读document</li>
+</ol>
+
+<h3>
+<a id="in-the-future" class="anchor" href="#in-the-future" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>In the future：</h3>
+
+<ul>
+<li>寻找更棒的接口</li>
+<li>结构更合理</li>
+<li>运行更高效</li>
+<li>scrapy是一个优秀的爬虫框架，结构合理，提供多线程，以后随着学习的深入会试着将更多成果运用进来。</li>
+<li>Long time supported.</li>
+</ul>
+
+<h2>
+<a id="声明" class="anchor" href="#%E5%A3%B0%E6%98%8E" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>声明</h2>
+
+<ul>
+<li>Email：<strong><a href="mailto:lancelotdev@163.com">lancelotdev@163.com</a></strong>
+</li>
+<li>欢迎互相交流</li>
+<li>Author：刘坤 南京理工大学计算机科学与工程学院</li>
+<li>Last-Modified：2016-05</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/build2last/NCspider">Ncspider</a> is maintained by <a href="https://github.com/build2last">build2last</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
