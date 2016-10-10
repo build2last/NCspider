@@ -1,4 +1,4 @@
-# NCspider  项目简介   
+﻿# NCspider  项目简介   
 ##中文门户网站新闻和评论抓取。
 
 ###开发目的
@@ -64,9 +64,11 @@
 
 ##声明
 * Email：**lancelotdev@163.com**
-* 欢迎互相交流
-* Author：刘坤 南京理工大学计算机科学与工程学院
+* Author：liu kun
 * Last-Modified：2016-05
+
+### To do list:
+ * HTML cache: cause the slow query of the huge data.
 
 [python]:https://www.python.org/
 [scrapy]:http://scrapy.org/
