@@ -40,8 +40,8 @@ A Python Project
 
 ## 问题说明：
 1. 编码问题：
-中文网页：对中文的解析需要特别注意编码问题，utf-8是多数，但有时网站会采用GBK,GBK2312等编码格式。
-数据库编码：出现了一大堆乱七八糟的文字，可以怀疑数据库字段编码跟内容编码不一致。
+  * 中文网页：对中文的解析需要特别注意编码问题，utf-8是多数，但有时网站会采用GBK,GBK2312等编码格式。
+  * 数据库编码：出现了一大堆乱七八糟的文字，可以怀疑数据库字段编码跟内容编码不一致。
 2. 利用django建立数据库时会有一些被默认的参数可能会被忽略，比如说数据项默认为非空 not null = true,所以说：使用前请认真阅读document
 
 ### To do list：
@@ -49,14 +49,19 @@ A Python Project
 * code review，运行更高效
 * scrapy是一个优秀的爬虫框架，结构合理，提供多线程，以后随着学习的深入会试着将更多成果运用进来。
 * 支持更多数据库类型，包括 NoSQL
- * HTML cache
+* HTML cache
 
 ## 声明
 * Email：**lancelotdev@163.com**
 * Author：liu kun
 * Last-Modified：2016-10 洗澡去了
 
+### project journal
 
+#### 2016-10-12
+项目答辩出奇顺利，因为确实下功夫了，洗澡去了，再见！
+
+楼下『加油』震天响
 
 [python]:https://www.python.org/
 [scrapy]:http://scrapy.org/
