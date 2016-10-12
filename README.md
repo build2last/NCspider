@@ -34,9 +34,11 @@ A Python Project
 ### 配套系统
     python 2.7
     Mysql 
+    Scrapy 1.0
+    
+### 测试
     Linux Ubuntu 14.04 tested
     Windows 10 tested
-    Scrapy 1.0
 
 ## 问题说明：
 1. 编码问题：
@@ -54,7 +56,7 @@ A Python Project
 ## 声明
 * Email：**lancelotdev@163.com**
 * Author：liu kun
-* Last-Modified：2016-10 洗澡去了
+* Last-Modified：2016-10
 
 ### project journal
 
