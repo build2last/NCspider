@@ -1,11 +1,11 @@
 ﻿# NCspider  项目简介   
 ## 中文门户网站新闻和评论抓取。
+A Python Project
 
 ### 编写目的
     获取门户网站原始新闻及评论素材，结构化存储后，为分析舆情提供数据基础。 
     门户网站新闻有着微博不可替代的一些特点。 
 
-### Written in [python], powered by [scrapy]. 
 请参考配置说明，为了方便展示，可以结合django建立数据库
 
 只需要爬虫的话建立database后修改settings.py相应参数就好了
