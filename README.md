@@ -36,16 +36,13 @@
   * /news$ scrapy crawl sohu
 
 ### 配套系统
-    python 2.7及标准库
-    测试中使用Mysql数据库  
-    Linux Ubuntu 14.04测试通过
-    理论上跨平台
+    python 2.7
+    Mysql 
+    Linux Ubuntu 14.04 tested
+    Windows 10 tested
+    Scrapy 1.0
 
-### 一些python库的引用：
-* Scrapy 1.0
-
-
-## 探过的坑：
+## 问题说明：
 1. 编码问题：
 中文网页：对中文的解析需要特别注意编码问题，utf-8是多数，但有时网站会采用GBK,GBK2312等编码格式。
 数据库编码：出现了一大堆乱七八糟的文字，可以怀疑数据库字段编码跟内容编码不一致。
@@ -53,18 +50,17 @@
 
 ### To do list：
 * 抓的更全
-* 运行更高效
+* code review，运行更高效
 * scrapy是一个优秀的爬虫框架，结构合理，提供多线程，以后随着学习的深入会试着将更多成果运用进来。
 * 支持更多数据库类型，包括 NoSQL
-
+ * HTML cache
 
 ## 声明
 * Email：**lancelotdev@163.com**
 * Author：liu kun
-* Last-Modified：2016-10
+* Last-Modified：2016-10 洗澡去了
 
-### To do list:
- * HTML cache: cause the slow query of the huge data.
+
 
 [python]:https://www.python.org/
 [scrapy]:http://scrapy.org/
