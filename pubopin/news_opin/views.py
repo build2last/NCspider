@@ -7,7 +7,11 @@ from .models import tencent_article,tencent_comment,sina_article,sina_comment,so
 from django.http import HttpResponse,Http404
 from snownlp import SnowNLP as nlp
 
+# web swatch
+off = True
 def show(request):
+    if off:
+        return HttpResponse("<h1>网站暂停使用, 项目 <a href=\"http://tofind.space/NCspider/\">Github 主页</a> </h1>")
     delta=datetime.timedelta(days=2)#展示日期区间
     hot_sina_news=sina_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
     hot_tencent_news=tencent_article.objects.filter(put_time__gte=datetime.date.today()-delta).exclude(title__isnull=True).exclude(title__exact='').order_by('-comments_number')[:20]
@@ -23,6 +27,8 @@ def show(request):
 
 
 def sina_cmt(request):
+    if off:
+        return HttpResponse("<h1>网站暂停使用, 项目 <a href=\"http://tofind.space/NCspider/\">Github 主页</a> </h1>")
     try:
         comment_id='comos-'+request.GET.get('comment_id')
         news_title = request.GET.get('title')
@@ -65,6 +71,8 @@ def sina_cmt(request):
         
 
 def sohu_cmt(request):
+    if off:
+        return HttpResponse("<h1>网站暂停使用, 项目 <a href=\"http://tofind.space/NCspider/\">Github 主页</a> </h1>")
     try:
         #return HttpResponse(str(sohu_comment.objects.filter(news_id=comment_id).values("author")))#留作DEBUG用
         comment_id = request.GET.get('comment_id')
