@@ -63,9 +63,7 @@ scrapy 中文编码处理 数据库配置
 ### project journal
 
 #### 2016-10-12
-项目答辩出奇顺利，因为确实下功夫了，洗澡去了，再见！
-
-楼下『加油』震天响
+答辩完毕
 
 [python]:https://www.python.org/
 [scrapy]:http://scrapy.org/
