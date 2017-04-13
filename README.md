@@ -48,6 +48,12 @@ scrapy 中文编码处理 数据库配置
   * 数据库编码：出现了一大堆乱七八糟的文字，可以怀疑数据库字段编码跟内容编码不一致。
 2. 利用django建立数据库时会有一些被默认的参数可能会被忽略，比如说数据项默认为非空 not null = true,所以说：使用前请认真阅读document
 
+
+### 著作声明
+* Email：**lancelotdev@163.com**
+* Author：liu kun
+* Last-Modified：2016-10
+
 ### To do list：
 * 抓的更全
 * code review，运行更高效
@@ -55,15 +61,19 @@ scrapy 中文编码处理 数据库配置
 * 支持更多数据库类型，包括 NoSQL
 * HTML cache
 
-## 声明
-* Email：**lancelotdev@163.com**
-* Author：liu kun
-* Last-Modified：2016-10
-
-### project journal
+### Journal
 
 #### 2016-10-12
 答辩完毕
 
 [python]:https://www.python.org/
 [scrapy]:http://scrapy.org/
+
+### Update：
+#### 2017-04-13
+现在看来这个项目还是存在很多问题的：
+1. 当初为了方便定制数据模型并于数据库同步，产生了 ORM(对象关系映射) 这个需求，碰巧用过 djongo 的那套东西，所以就直接拿来用了，现在知道有专门的工具 [SQLAlchemy](http://www.sqlalchemy.org/) 来解决这个问题了。
+2. Mysql 数据量大之后进行查询真的好慢。
+3. 文档相当不专业。
+
+
