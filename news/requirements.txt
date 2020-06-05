@@ -6,7 +6,7 @@ cffi==1.5.2
 characteristic==14.3.0
 cryptography==1.2.2
 cssselect==0.9.1
-Django==1.8.7
+Django==1.11.29
 django-admin-bootstrapped==2.5.7
 django-appconf==1.0.1
 django-blog-zinnia==0.15.2
