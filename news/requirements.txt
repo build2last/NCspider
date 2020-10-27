@@ -4,7 +4,7 @@ BeautifulSoup==3.2.1
 beautifulsoup4==4.4.1
 cffi==1.5.2
 characteristic==14.3.0
-cryptography==1.2.2
+cryptography==3.2
 cssselect==0.9.1
 Django==1.8.7
 django-admin-bootstrapped==2.5.7
