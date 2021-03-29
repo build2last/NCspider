@@ -29,7 +29,7 @@ Pillow==2.3.0
 pyasn1==0.1.9
 pyasn1-modules==0.0.8
 pycparser==2.14
-Pygments==2.0.2
+Pygments==2.7.4
 pyOpenSSL==0.13
 pyparsing==2.1.0
 pytz==2015.7

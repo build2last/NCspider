@@ -3,7 +3,7 @@ Landscape-Client==14.01
 MySQL-python==1.2.5
 PAM==0.4.2
 Pillow==2.3.0
-Pygments==1.6
+Pygments==2.7.4
 Twisted-Conch==13.2.0
 Twisted-Core==13.2.0
 Twisted-Mail==13.2.0
