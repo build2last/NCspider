@@ -20,7 +20,7 @@ django-xmlrpc==0.1.5
 enum34==1.1.2
 idna==2.0
 ipaddress==1.0.16
-lxml==3.3.3
+lxml==4.6.3
 Mail==2.1.0
 Markdown==2.6.5
 mots-vides==2015.5.11
