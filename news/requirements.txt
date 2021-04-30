@@ -40,7 +40,7 @@ Scrapy==1.0.3
 service-identity==14.0.0
 simplejson==3.8.1
 six==1.10.0
-Twisted==13.2.0
+Twisted==20.3.0
 w3lib==1.13.0
 wheel==0.29.0
 zope.interface==4.1.3
