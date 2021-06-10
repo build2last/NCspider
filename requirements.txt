@@ -1,4 +1,4 @@
-Django==1.8.7
+Django==2.2.24
 Landscape-Client==14.01
 MySQL-python==1.2.5
 PAM==0.4.2
