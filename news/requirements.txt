@@ -34,7 +34,7 @@ pyOpenSSL==0.13
 pyparsing==2.1.0
 pytz==2015.7
 queuelib==1.4.2
-reportlab==3.0
+reportlab==3.5.55
 requests==2.2.1
 Scrapy==1.0.3
 service-identity==14.0.0
