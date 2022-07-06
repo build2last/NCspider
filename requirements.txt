@@ -20,7 +20,7 @@ django-admin-bootstrapped==2.5.7
 django-ckeditor==5.0.2
 django-taggit==0.17.6
 guppy==0.1.9
-html5lib==0.999
+html5lib==0.999999999
 ipython==1.2.1
 lxml==3.3.3
 pexpect==3.1
