@@ -35,7 +35,7 @@ pyparsing==2.1.0
 pytz==2015.7
 queuelib==1.4.2
 reportlab==3.0
-requests==2.2.1
+requests==2.20.0
 Scrapy==1.0.3
 service-identity==14.0.0
 simplejson==3.8.1
