@@ -38,6 +38,6 @@ uWSGI==2.0.12
 urllib3==1.7.1
 virtualenv==14.0.6
 w3lib==1.5
-wheel==0.24.0
+wheel==0.38.1
 wsgiref==0.1.2
 zope.interface==4.0.5
